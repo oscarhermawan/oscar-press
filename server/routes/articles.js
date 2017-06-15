@@ -7,6 +7,6 @@ router.get('/', api.getAllArticles)
 // router.get('/:id', api.getById)
 router.post('/', jwt.verifyToken, api.insertArticle)
 // router.put('/:id', api.editArticle)
-// router.delete('/:id', api.deleteArticle)
+router.delete('/:id', jwt.verifyId, api.deleteArticle)
 
 module.exports = router

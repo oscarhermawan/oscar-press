@@ -16,6 +16,22 @@ const store = new Vuex.Store({
         },(err) => {
           console.log(err)
       })
+    },
+    DELETE_ARTICLE({ commit }, { deleteArticle } ){
+      axios.delete(`http://localhost:3000/articles/${deleteArticle.id}`, { headers:
+        {
+          token: localStorage.getItem('token'),
+          author:deleteArticle.author
+        }
+      })
+      .then((response) =>{
+        if(response.data == 'Gagal'){
+          alert('Anda Tidak Punya Akses')
+        }
+        else{
+          console.log(response.data);
+        }
+      })
     }
   },
   mutations: {

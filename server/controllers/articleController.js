@@ -2,11 +2,25 @@ var db = require('../models/article')
 const methods = {}
 
 methods.getAllArticles = function(req, res) {
-  db.find(function(err, record) {
-    if(err){
-      console.log(err);
+  db.find({})
+  .populate('author')
+  .exec((error, records)=>{
+    if(error){
+      res.send(error)
     } else {
-      res.send(record)
+      res.send(records)
+    }
+  })
+}
+
+methods.getById = function(req,res){
+  db.findOne({_id:req.params.id})
+  .populate('author', 'username')
+  .exec((error, records)=>{
+    if(error){
+      res.send(error)
+    } else {
+      res.send(records)
     }
   })
 }
@@ -29,6 +43,14 @@ methods.insertArticle = function(req, res){
   })
 }
 
-
+methods.deleteArticle = function(req,res) {
+  db.findByIdAndRemove(req.params.id, function(err, result){
+    if(!err){
+      res.send(result)
+    } else {
+      res.send(err)
+    }
+  })
+}
 
 module.exports = methods

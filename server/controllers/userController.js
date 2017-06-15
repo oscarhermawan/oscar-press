@@ -44,6 +44,4 @@ methods.signIn = function (username, password, next) {
   })
 }
 
-
-
 module.exports = methods

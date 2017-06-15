@@ -9,12 +9,12 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong>{{article.title}}</strong> <small>@johnsmith</small> <small>31m</small>
+            <strong>{{article.author.username}}</strong>
             <br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-          </p>
+            {{article.title}}
+            </p>
           <a class="button is-warning">Edit</a>
-          <a class="button is-danger">Hapus</a>
+          <a class="button is-danger" @click="deleteArticle(article)">Delete</a>
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
@@ -30,19 +30,26 @@
           </div>
         </nav>
       </div>
-      <div class="media-right">
-        <button class="delete"></button>
-      </div>
     </article>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import axios from 'axios'
 export default{
   computed:mapState([
     'articles_list'
-  ])
+  ]),
+  methods:{
+    deleteArticle(article){
+      let deleteArticle = {
+          id:article._id,
+          author:article.author._id
+        }
+        this.$store.dispatch('DELETE_ARTICLE', { deleteArticle })
+    }
+  }
 }
 </script>
 
