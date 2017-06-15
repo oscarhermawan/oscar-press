@@ -3,9 +3,9 @@ const router = express.Router()
 const api = require('../controllers/userController')
 var passport = require('passport')
 
-// router.get('/', api.getAllUsers)
+router.get('/', api.getAllUsers)
 // router.get('/:id', api.getById)
-// router.post('/', api.insertUser)
+router.post('/', api.insertUser)
 
 router.post('/signin', passport.authenticate('local', {session:false}), function(req,res){
   var user = req.user
