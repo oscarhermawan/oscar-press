@@ -68,7 +68,11 @@ export default{
       window.location.href = '/#/login'
     },
     activeArticle:function(){
-      this.modalAddArticle='modal is-active'
+      if(localStorage.getItem('token')==null){
+        alert('Login Dulu Bos')
+      } else {
+        this.modalAddArticle='modal is-active'
+      }
     },
     closeModal:function(){
       this.modalAddArticle='modal'
