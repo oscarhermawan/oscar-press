@@ -6,7 +6,7 @@
           <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
         </a>
         <a class="nav-item is-tab is-hidden-mobile is-active">Home</a>
-        <a class="nav-item is-tab is-hidden-mobile">Add Article</a>
+        <a class="nav-item is-tab is-hidden-mobile" @click="aktifinModalAdd">Add Article</a>
       </div>
       <span class="nav-toggle">
         <span></span>
@@ -31,6 +31,9 @@ export default {
     methods: {
       emitLogout () {
         this.$emit('keluarDariAnak')
+      },
+      aktifinModalAdd(){
+        this.$emit('aktifinModal')
       }
     }
   }

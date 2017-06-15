@@ -17,6 +17,14 @@ const store = new Vuex.Store({
           console.log(err)
       })
     },
+    ADD_ARTICLE({ commit }, { addArticle }) {
+      axios.post('http://localhost:3000/articles', addArticle, { headers: { token: localStorage.getItem('token')}})
+      .then((response) =>{
+        commit('ADD_ARTICLE', { result : response.data })
+      }, (err) => {
+        console.log(err)
+      })
+    },
     DELETE_ARTICLE({ commit }, { deleteArticle } ){
       axios.delete(`http://localhost:3000/articles/${deleteArticle.id}`, { headers:
         {
@@ -29,7 +37,7 @@ const store = new Vuex.Store({
           alert('Anda Tidak Punya Akses')
         }
         else{
-          console.log(response.data);
+          commit('DELETE_ARTICLE', { result : response.data })
         }
       })
     }
@@ -37,6 +45,13 @@ const store = new Vuex.Store({
   mutations: {
     SET_ARTICLES_LIST: (state, { list }) => {
       state.articles_list = list
+    },
+    ADD_ARTICLE (state, { result }) {
+     state.articles_list.push(result)
+   },
+    DELETE_ARTICLE (state, { result }) {
+      let idx = state.articles_list.map(p => p._id).indexOf(result._id)
+      state.articles_list.splice(idx, 1)
     }
   },
   getters: {

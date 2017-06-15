@@ -38,7 +38,15 @@ methods.insertArticle = function(req, res){
     if(err){
       res.send(err)
     } else {
-      res.send(result)
+      db.findOne({_id:result._id})
+      .populate('author', 'username')
+      .exec((error, records)=>{
+        if(error){
+          res.send(error)
+        } else {
+          res.send(records)
+        }
+      })
     }
   })
 }
